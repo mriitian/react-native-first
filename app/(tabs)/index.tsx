@@ -1,70 +1,192 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React from "react";
+import { ScrollView, StyleSheet, View, TouchableOpacity } from "react-native";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { FontAwesome } from "@expo/vector-icons"; // For the navigation icons
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
+    <ThemedView style={styles.container}>
+      {/* Header */}
+      <View style={styles.headerContainer}>
+        <TouchableOpacity>
+          <FontAwesome name="arrow-left" size={24} color="white" />
+        </TouchableOpacity>
+        <ThemedText style={styles.headerText} type="title">
+          Quiz
         </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <TouchableOpacity>
+          <FontAwesome name="ellipsis-v" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Content */}
+      <View style={styles.contentContainer}>
+        {/* Scrollable content */}
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <View style={styles.statsContainer}>
+            <View style={styles.statBox}>
+              <ThemedText style={styles.statText} type="subtitle">
+                20
+              </ThemedText>
+              <ThemedText style={styles.statLabel}>World Ranking</ThemedText>
+            </View>
+            <View style={styles.statBox}>
+              <ThemedText style={styles.statText} type="subtitle">
+                12000
+              </ThemedText>
+              <ThemedText style={styles.statLabel}>Points earned</ThemedText>
+            </View>
+          </View>
+
+          <View style={styles.quizInfoContainer}>
+            <ThemedText style={styles.quizTitle}>LAST QUIZ</ThemedText>
+            <ThemedText style={styles.quizDetails}>UI/UX Design</ThemedText>
+            <ThemedText style={styles.quizPoints}>Points: 150</ThemedText>
+            <ThemedText style={styles.rankText}>🏅 Rank: 1</ThemedText>
+          </View>
+
+          {/* Featured Section */}
+          <View style={styles.featuredContainer}>
+            <ThemedText style={styles.featuredTitle}>FEATURED</ThemedText>
+            <ThemedText style={styles.featuredText}>
+              Amazing Quizzes lined up for you all in Upcoming Months
+            </ThemedText>
+            <TouchableOpacity style={styles.notifyButton}>
+              <ThemedText style={styles.notifyButtonText}>
+                Turn on Notifications
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+
+          {/* View All Quizzes Button */}
+          <TouchableOpacity style={styles.viewAllButton}>
+            <ThemedText style={styles.viewAllText}>View All Quizzes</ThemedText>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#F5BE00", // Header background color
+    width: "100%",
+    justifyContent: "flex-end",
   },
-  stepContainer: {
-    gap: 8,
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 20,
+  },
+  headerText: {
+    color: "white",
+    fontSize: 20,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+  scrollContent: {
+    flexGrow: 1, // Ensures the ScrollView's content takes up all available space
+    padding: 20,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    justifyContent: "flex-start",
+  },
+  statsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "#082B4D", // Dark blue background
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  statBox: {
+    alignItems: "center",
+  },
+  statText: {
+    color: "white",
+    fontSize: 20,
+  },
+  statLabel: {
+    color: "white",
+    fontSize: 14,
+  },
+  quizInfoContainer: {
+    backgroundColor: "#F5BE00",
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 16,
+    alignItems: "center",
+  },
+  quizTitle: {
+    color: "white",
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  quizDetails: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  quizPoints: {
+    color: "white",
+    fontSize: 14,
+  },
+  rankText: {
+    color: "white",
+    fontSize: 14,
+  },
+  featuredContainer: {
+    backgroundColor: "#082B4D",
+    paddingTop: 32,
+    paddingBottom: 32,
+    paddingHorizontal: 18,
+    borderRadius: 8,
+    marginBottom: 16,
+    alignItems: "center",
+  },
+  featuredTitle: {
+    color: "yellow",
+    fontSize: 14,
+    fontWeight: "bold",
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  featuredText: {
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
+    marginBottom: 16,
+    fontWeight: 600,
+  },
+  notifyButton: {
+    backgroundColor: "yellow",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+  },
+  notifyButtonText: {
+    color: "#082B4D",
+    fontWeight: "bold",
+  },
+  viewAllButton: {
+    backgroundColor: "#F5BE00",
+    paddingTop: 40,
+    paddingBottom: 40,
+    alignItems: "center",
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  viewAllText: {
+    color: "white",
+    fontWeight: 600,
+    fontSize: 24,
   },
 });
